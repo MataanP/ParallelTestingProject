@@ -13,13 +13,17 @@ public class IOreader implements Runnable{
   private BufferedReader br;
   private Map<String, Integer> values;
   private String fileName;
+  private StringTracker tracker;
+  private char [] symbols;
 
-  public IOreader(String fileName, Map<String, Integer> values){
+  public IOreader(String fileName, Map<String, Integer> values, String word){
     try{
       FileReader fr = new FileReader(fileName);
       br = new BufferedReader(fr, buffLen);
       this.fileName = fileName;
       this.values = values;
+      tracker = new StringTracker(word);
+      symbols = new char [] {';', ':', '!', ',', '.', '(', ')', '?', '\''};
     }
     catch ( IOException e){
       e.printStackTrace();
@@ -55,11 +59,38 @@ public class IOreader implements Runnable{
     if (charsToRead==-1){
       return counter;
     }
+    char currChar;
     for (int i = 0; i<charsToRead; i++){
-      if (buff[i] == '\n'){
-        counter++;
+      currChar = buff[i];
+      if (tracker.isEqual(-1)){
+        if (Character.compare(currChar, ' ')==0)
+        {
+          tracker.increment();
+        }
+      }
+      else if (tracker.isEqualMaxLen()){
+        if(endOfWord(currChar)){
+          counter +=1;
+          tracker.resetTracker();
+        }
+      }
+      else if (currChar == tracker.charAt())
+      {
+        tracker.increment();
+      }
+      else{
+        tracker.resetTracker();
       }
     }
     return counter;
+  }
+
+  public boolean endOfWord(char wordEnder){
+    for (char symbol :symbols){
+      if (symbol == wordEnder){
+        return true;
+      }
+    }
+    return false;
   }
 }

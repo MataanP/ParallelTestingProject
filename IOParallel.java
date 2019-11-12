@@ -10,16 +10,20 @@ public class IOParallel {
     }
     String targetWord = args[0];
 
-    /*
-      Parallel reading of all the files
-    */
-    String [] files =  new String [] {"mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt"};
+
+
+    //String [] files =  new String []{"mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt"};
+
+
+    String [] files =  new String []{"mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt","mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt","mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt","mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt","mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt","mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt","mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt","mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt"};
+    
+    /*Parallel*/
     Thread [] threads = new Thread [files.length];
     Map<String, Integer> values = new HashMap<String, Integer>();
     int i = 0;
     Instant start = Instant.now();
     for (String file:files){
-      IOreader newReader = new IOreader(file, values);
+      IOreader newReader = new IOreader(file, values, targetWord);
       Thread t = new Thread(newReader);
 
       t.start();
@@ -38,6 +42,7 @@ public class IOParallel {
     }
 
     int sumLines = 0;
+
     for (String file:files){
       sumLines += values.get(file);
     }
@@ -52,7 +57,7 @@ public class IOParallel {
     Map<String, Integer> values2 = new HashMap<String, Integer>();
     Instant start2 = Instant.now();
     for (String file:files){
-      IOreader newReader = new IOreader(file, values2);
+      IOreader newReader = new IOreader(file, values2, targetWord);
       newReader.run();
     }
     sumLines = 0;

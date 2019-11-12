@@ -6,14 +6,12 @@ import timeit
 
 def count_words(fileName,targetWord,procnum = -1,ret_dict = None):
     text = open(fileName)
-    symbols = [';', ':', '!', ",", ".", "-", "(", ")", "?", "'"]
+    symbols = [';', ':', '!', ",", ".", "(", ")", "?", "'"]
     # counter keeping track of number of occurences
     count = 0
 
     # Loop through each line
     for line in text:
-        count+= 1
-        """
         # Remove the leading spaces and newline character
         line = line.strip()
 
@@ -31,7 +29,6 @@ def count_words(fileName,targetWord,procnum = -1,ret_dict = None):
         for word in words:
             if word == targetWord:
                 count += 1
-            """
     text.close()
     if (procnum == -1 or ret_dict == None):
         return count
@@ -66,8 +63,7 @@ def main():
         count += count_words(file, targetWord)
     print(count)
 
-files = ["mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt"]
-
+files =["mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt","mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt","mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt","mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt","mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt","mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt","mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt","mobydick.txt","warAndPeace.txt","eragon.txt","hobbit.txt","toKillAMockingbird.txt"]
 if len(sys.argv) <2:
   print("Usage: python3 filename <wordToFind>")
   exit(1)
